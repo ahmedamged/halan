@@ -40,7 +40,7 @@ export const Table = ({ customers }) => {
             <th>Email</th>
           </tr>
         </thead>
-        <tbody>{customersTable}</tbody>
+        <tbody data-testid="customersTable">{customersTable}</tbody>
       </table>
       <button onClick={printHandler}>Print</button>
     </div>
