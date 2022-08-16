@@ -27,6 +27,7 @@ function App() {
   return (
     <div className="App">
       <Table customers={state} />
+      
     </div>
   );
 }

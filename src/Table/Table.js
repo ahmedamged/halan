@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export const Table = ({ customers }) => {
   const customersTable = customers.map(
@@ -12,8 +14,22 @@ export const Table = ({ customers }) => {
       </tr>
     )
   );
+
+  const divEl = useRef('null');
+
+  const printHandler = () => {
+    html2canvas(divEl.current, {
+        scale:1
+      }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      pdf.addImage(imgData, "JPEG", 0, 0);
+      pdf.save("download.pdf");
+    });
+  };
+
   return (
-    <div>
+    <div ref={divEl}>
       <table>
         <thead>
           <tr>
@@ -26,6 +42,7 @@ export const Table = ({ customers }) => {
         </thead>
         <tbody>{customersTable}</tbody>
       </table>
+      <button onClick={printHandler}>Print</button>
     </div>
   );
 };
